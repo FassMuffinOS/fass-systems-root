@@ -13,26 +13,38 @@ authority / governance / Kernel.ts" experiment, explicitly marked
 `DO_NOT_RUN_FROM_ROOT` warnings baked into it. Don't deploy that one — this
 one is the real, working replacement.
 
-## Deploy it (pick one)
+## Deploy it
 
-**Option A — new Vercel project (recommended, cleanest):**
-1. Push this folder to a new GitHub repo (e.g. `fass-systems-root`).
-2. In Vercel: New Project → import that repo → Framework Preset: "Other" →
-   deploy (no build command needed, it's a static `index.html`).
-3. Vercel Project Settings → Domains → add `fass.systems` and `www.fass.systems`.
-4. Vercel will tell you the DNS is already correct (Cloudflare's `fass.systems`
-   A record already points at Vercel's `76.76.21.21`, DNS-only) — no DNS
-   change needed, just remove `fass.systems` from the **mercury-portfolio**
-   project's domains first (a domain can only be attached to one Vercel
-   project at a time) and add it here.
+Checked live via the Vercel API on 2026-07-01 — correcting an earlier wrong
+guess in this README: `fass.systems` is **not** attached to
+`mercury-portfolio` (that project's last deploy actually errored, it isn't
+live). The domain is attached to **`fass-landing`**, a fully-built Next.js
+app — see `ARCHIVE_fass-landing.md` in this repo for what that was serving
+before this replaces it.
 
-**Option B — replace mercury-portfolio's content directly:**
-1. Open the `mercury-portfolio` repo, replace its content with this
-   `index.html`, commit, push. It's already the project `fass.systems` is
-   attached to, so nothing to reconfigure in Vercel.
-2. Simpler, but permanently overwrites the old portfolio history in that repo
-   — use Option A instead if you want to keep mercury-portfolio intact
-   somewhere.
+**Steps:**
+1. Push this folder to a new GitHub repo (e.g. `FassMuffinOS/fass-systems-root`,
+   matching the naming convention the other repos use).
+2. In the Vercel dashboard (team: FASS Technologies LLC): **Add New → Project**
+   → import that repo → Framework Preset: "Other" (no build command needed,
+   it's a static `index.html`) → Deploy.
+3. On the new project: **Settings → Domains → Add** → type `fass.systems`.
+   Vercel will detect it's already assigned to `fass-landing` and offer to
+   **move it** — one click, no DNS change needed (Cloudflare's `fass.systems`
+   A record already points at Vercel's `76.76.21.21`, DNS-only, so it's
+   correct for any Vercel project). Do the same for `www.fass.systems` if it's
+   attached anywhere.
+4. Confirm at `https://fass.systems` — should show the new page within a
+   minute or two.
+
+I don't have a way to run this deploy or move the domain myself (no CLI in
+my sandbox, no domain-management tool in the Vercel connector I have — just
+read access to list projects/deployments). This part needs your hands.
+
+Once confirmed live, `mercury-portfolio` (errored, not live, not attached to
+any real domain) and `fass-landing` (now detached from `fass.systems`, still
+reachable at its `.vercel.app` URL) both become fair game for the cleanup
+list below.
 
 ## Third-party cleanup checklist (do one at a time)
 
@@ -61,16 +73,26 @@ account — so none of the above deletions can silently lose stored data.
       separate from the real backend. Confirm what this is before touching
       it; if it's dead, remove the record.
 
-**Vercel projects** (Vercel dashboard → project → Settings → Delete):
-- [ ] `mercury-portfolio` — only after `fass.systems` domain is moved to the
-      new project above.
+**Vercel projects** (Vercel dashboard → project → Settings → Delete) — full
+list confirmed live via the Vercel API on 2026-07-01, 11 projects total:
+- [ ] `fass-landing` — only after `fass.systems` domain is moved off it (see
+      Deploy steps above). Real Next.js app, archived in
+      `ARCHIVE_fass-landing.md` first.
+- [ ] `mercury-portfolio` — already not live (last deploy errored), not
+      attached to any real domain. Safe to delete any time.
 - [ ] `fass-control-plane` (control.fass.systems) — dormant restaurant-ops
       side project.
 - [ ] `fass-menu-architect` (spiceroute.fass.systems) — same restaurant-ops
       side project, different piece.
 - [ ] `spiceroute` — orphaned, no git repo connected.
 - [ ] `fass-forge-video-mockup` — one-off mockup.
-- [ ] `axiom-fass-...` — unreviewed, confirm before deleting.
+- [ ] `fass-app-dashboard` — unreviewed, confirm before deleting.
+- [ ] `fass-app-docs` (docs.fass.systems) — confirm this is actually dead
+      before removing; "docs" sounds like it could still be linked from
+      somewhere.
+- [ ] `axiom-fass-systems` and `axiom-fass-systems-updated-3-6-2026` — two
+      versions of the same project exist; confirm which (if either) is
+      current before deleting the other.
 
 **Not touched, and not recommended to touch right now:**
 - The old `fass.systems` GitHub repo (`FassMuffinOS/fass.systems`) — leave it
