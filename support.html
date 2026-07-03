@@ -7,56 +7,57 @@
 <meta name="description" content="Support for FASS Flow, Regulars, and FASS Data API — account, billing, and product help from FASS Technologies LLC." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
 <style>
   :root {
     --teal: #1D9E75;
     --dark-teal: #0F6E56;
-    --light-teal: #E1F5EE;
-    --navy: #1B2A4A;
-    --gray-50: #F9FAFB;
-    --gray-200: #E5E7EB;
-    --gray-500: #6B7280;
-    --gray-700: #374151;
+    --light-teal: rgba(29,158,117,0.1);
+    --navy: #0A0A0A;
+    --gray-50: #FFFFFF;
+    --gray-200: #F0F0F0;
+    --gray-500: #737373;
+    --gray-700: #404040;
     --white: #FFFFFF;
     --radius-lg: 16px;
     --radius-md: 12px;
-    --shadow-md: 0 4px 16px rgba(0,0,0,0.08);
-    --shadow-lg: 0 20px 50px rgba(16,24,40,0.12);
+    --shadow-md: none;
+    --shadow-lg: 0 24px 48px rgba(0,0,0,0.1);
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
   body {
-    font-family: 'Inter', sans-serif;
-    background: var(--gray-50);
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: var(--white);
     color: var(--navy);
     line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
   }
-  h1, h2, h3 { font-family: 'Plus Jakarta Sans', sans-serif; }
+  h1, h2, h3 { font-family: 'Inter', sans-serif; font-weight: 800; letter-spacing: -0.02em; }
   a { color: inherit; text-decoration: none; }
 
   .wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
 
   header {
-    padding: 28px 0;
+    padding: 22px 0;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    border-bottom: 1px solid var(--gray-200);
   }
   .logo {
-    font-family: 'Plus Jakarta Sans', sans-serif;
     font-weight: 800;
-    font-size: 1.25rem;
+    font-size: 1.15rem;
     letter-spacing: -0.02em;
   }
-  .logo span { color: var(--teal); }
+  .logo span { color: var(--gray-500); font-weight: 500; }
   nav a {
     margin-left: 28px;
-    font-weight: 600;
-    font-size: 0.9rem;
+    font-weight: 500;
+    font-size: 0.92rem;
     color: var(--gray-700);
   }
-  nav a:hover { color: var(--teal); }
+  nav a:hover { color: var(--navy); }
 
   .hero {
     padding: 64px 0 40px;
