@@ -1,9 +1,10 @@
 {
-  "rewrites": [
+  "redirects": [
     {
-      "source": "/((?!support\\.html).*)",
+      "source": "/",
       "has": [{ "type": "host", "value": "support.fass.systems" }],
-      "destination": "/support.html"
+      "destination": "/support.html",
+      "permanent": false
     }
   ]
 }
