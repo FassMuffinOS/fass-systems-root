@@ -1,7 +1,7 @@
 {
   "rewrites": [
     {
-      "source": "/",
+      "source": "/((?!support\\.html).*)",
       "has": [{ "type": "host", "value": "support.fass.systems" }],
       "destination": "/support.html"
     }
