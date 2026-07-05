@@ -1,5 +1,29 @@
 # fass-systems-root
 
+## 2026-07-05: fixed support.fass.systems intermittently showing the wrong homepage
+
+`fass.systems`, `www.fass.systems`, and `support.fass.systems` are all
+custom domains on this *same* Vercel project/deployment. The `redirects`
+rule in `vercel.json` sends `support.fass.systems`'s `/` to `/support.html`
+based on the `Host` header — that rule itself was correct. But repeated
+fetches of `https://support.fass.systems/` showed the *general* homepage
+content roughly as often as the support page, with no code change in
+between. Appending a cache-busting query string (`?cb=random`) made the
+redirect fire correctly every single time.
+
+That's the signature of a caching layer keying its cache by path only,
+ignoring the `Host` header — plausible here specifically because multiple
+domains share one deployment, so a `/` response cached from a `fass.
+systems` visit can get served back to a `support.fass.systems` visitor (or
+vice versa) depending which edge cache entry a given request happens to
+hit. Fixed by adding an explicit `Cache-Control: no-store, must-revalidate`
+header on the `/` route in `vercel.json`, forcing every request to
+re-evaluate the host-conditional redirect instead of risking a stale,
+wrong-domain cache hit. Re-deploy and re-verify with a few uncached fetches
+before considering this fully closed — caching bugs like this can hide
+again if a future change reintroduces aggressive caching on this route.
+
+
 The new umbrella page for `fass.systems` — promotes FASS Flow and Regulars,
 frames FASS Technologies as a growing product company. Single static
 `index.html`, no build step, no framework. Deliberately simple so it ships

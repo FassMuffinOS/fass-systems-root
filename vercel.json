@@ -6,5 +6,16 @@
       "destination": "/support.html",
       "permanent": false
     }
+  ],
+  "headers": [
+    {
+      "source": "/",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-store, must-revalidate"
+        }
+      ]
+    }
   ]
 }
