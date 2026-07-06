@@ -2,8 +2,28 @@
   "redirects": [
     {
       "source": "/",
-      "has": [{ "type": "host", "value": "support.fass.systems" }],
+      "has": [
+        {
+          "type": "host",
+          "value": "support.fass.systems"
+        }
+      ],
       "destination": "/support.html",
+      "permanent": false
+    },
+    {
+      "source": "/team",
+      "destination": "/team.html",
+      "permanent": false
+    },
+    {
+      "source": "/sales",
+      "destination": "https://api.fass.systems/api/v1/sales",
+      "permanent": false
+    },
+    {
+      "source": "/ops",
+      "destination": "https://api.fass.systems/api/v1/ops",
       "permanent": false
     }
   ],
