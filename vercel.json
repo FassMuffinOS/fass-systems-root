@@ -13,7 +13,7 @@
     },
     {
       "source": "/team",
-      "destination": "/team.html",
+      "destination": "https://api.fass.systems/api/v1/team",
       "permanent": false
     },
     {
