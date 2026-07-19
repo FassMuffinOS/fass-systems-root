@@ -168,6 +168,21 @@
   .footer-links a:hover { color: var(--ink); }
   .disclaimer { font-size: 0.78rem; color: var(--gray-500); margin-top: 18px; max-width: 720px; }
 
+  /* ---------- Beta call ---------- */
+  .beta { padding: 84px 0; border-top: 1px solid var(--gray-100); background: var(--gray-50); }
+  .beta-inner { display: grid; grid-template-columns: 320px 1fr; gap: 52px; align-items: center; max-width: 960px; margin: 0 auto; }
+  @media (max-width: 760px) { .beta-inner { grid-template-columns: 1fr; gap: 30px; max-width: 420px; } }
+  .beta-media { position: relative; }
+  .beta-media video { width: 100%; aspect-ratio: 9 / 16; border-radius: 22px; box-shadow: 0 24px 54px rgba(0,0,0,0.16); background: #000; display: block; object-fit: cover; }
+  .beta-tag { position: absolute; top: 14px; left: 14px; display: inline-flex; align-items: center; gap: 7px; background: rgba(10,10,10,0.72); color: #fff; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; padding: 6px 12px; border-radius: 999px; backdrop-filter: blur(6px); }
+  .beta-tag .live-dot { background: #34d399; }
+  .beta-copy .section-eyebrow { text-align: left; }
+  .beta-copy h2 { font-size: clamp(1.7rem, 3.2vw, 2.3rem); font-weight: 800; letter-spacing: -0.02em; margin-bottom: 16px; }
+  .beta-copy h2 em { color: var(--accent); font-style: normal; }
+  .beta-copy p { color: var(--gray-700); font-size: 1.05rem; margin-bottom: 14px; }
+  .beta-cap { font-size: 0.85rem; color: var(--gray-500); font-weight: 600; display: inline-flex; align-items: center; gap: 8px; margin-top: 6px; }
+  .beta-cap b { color: var(--ink); font-weight: 700; }
+
   /* ---------- Reveal ---------- */
   .reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.6s ease, transform 0.6s ease; }
   .reveal.in { opacity: 1; transform: translateY(0); }
@@ -219,6 +234,27 @@
       <div class="phone-bottom">This isn't a mockup of what it might say. <a href="tel:+14437264659">Call the line</a> and have this conversation yourself.</div>
     </div>
     <p class="demo-caption">Not a receptionist that takes a message. A sales rep that runs the play — it opens, discovers, handles objections, offers one clear next step, and asks for the close.</p>
+  </div>
+</section>
+
+<section class="beta">
+  <div class="wrap">
+    <div class="beta-inner">
+      <div class="beta-media reveal">
+        <span class="beta-tag"><span class="live-dot"></span> Real beta call</span>
+        <video controls preload="none" playsinline poster="/fass-voice-beta-poster.jpg">
+          <source src="/fass-voice-beta-call.mp4" type="video/mp4" />
+          Your browser doesn't support video playback. <a href="/fass-voice-beta-call.mp4">Open the clip</a>.
+        </video>
+      </div>
+      <div class="beta-copy reveal">
+        <span class="section-eyebrow">The first beta call</span>
+        <h2>The very first call we ever made to it — <em>and it worked</em>.</h2>
+        <p>No studio, no script. The night we got FASS Voice answering, my daughter grabbed the phone before I could and started interviewing it herself.</p>
+        <p>We kept the whole thing — the giggles, the pauses, the "wait, is it really talking back?" If a kid on the living-room floor can get it going on the first try, onboarding your customers is the easy part.</p>
+        <span class="beta-cap"><b>Unedited beta call</b> · dialed (443) 726-4659</span>
+      </div>
+    </div>
   </div>
 </section>
 
