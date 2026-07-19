@@ -37,5 +37,11 @@
         }
       ]
     }
+  ],
+  "rewrites": [
+    {
+      "source": "/fass-voice",
+      "destination": "/fass-voice.html"
+    }
   ]
 }
