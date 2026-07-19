@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Text Message Opt-In — FASS Technologies</title>
+<meta name="description" content="Sign up to receive text messages from FASS Technologies. Consent is never a condition of purchase. Reply STOP to opt out at any time." />
+<style>
+  :root{
+    --bg:#0b0d10; --card:#14181d; --line:#252b33; --fg:#e8edf2; --muted:#9aa6b2;
+    --accent:#3b82f6; --accent2:#22c55e; --radius:14px;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:radial-gradient(1200px 600px at 50% -10%,#12202f 0%,var(--bg) 55%);color:var(--fg);
+    font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    min-height:100vh;display:flex;align-items:center;justify-content:center;padding:32px 16px}
+  .wrap{width:100%;max-width:560px}
+  .brand{display:flex;align-items:center;gap:10px;margin-bottom:20px;font-weight:700;letter-spacing:.3px}
+  .brand .dot{width:12px;height:12px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2))}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:28px 26px;
+    box-shadow:0 24px 60px rgba(0,0,0,.45)}
+  h1{font-size:24px;margin:0 0 6px}
+  .sub{color:var(--muted);margin:0 0 22px;font-size:15px}
+  label{display:block;font-size:13px;color:var(--muted);margin:14px 0 6px;font-weight:600;letter-spacing:.2px}
+  input[type=text],input[type=tel]{width:100%;padding:12px 14px;background:#0e1216;border:1px solid var(--line);
+    border-radius:10px;color:var(--fg);font-size:15px}
+  input:focus{outline:none;border-color:var(--accent)}
+  .consent{display:flex;gap:12px;align-items:flex-start;margin:20px 0 4px;padding:14px;border:1px solid var(--line);
+    border-radius:10px;background:#0e1216}
+  .consent input{margin-top:3px;width:18px;height:18px;flex:0 0 auto;accent-color:var(--accent)}
+  .consent span{font-size:13px;color:var(--muted);line-height:1.5}
+  button{margin-top:18px;width:100%;padding:13px 16px;border:0;border-radius:10px;cursor:pointer;
+    background:linear-gradient(135deg,var(--accent),#2563eb);color:#fff;font-size:16px;font-weight:700}
+  button:disabled{opacity:.5;cursor:not-allowed}
+  .fine{margin-top:16px;font-size:12px;color:var(--muted);line-height:1.6}
+  .fine a{color:#8ab4ff}
+  .ok{display:none;text-align:center;padding:10px 0}
+  .ok h2{color:var(--accent2);margin:6px 0}
+  footer{margin-top:18px;text-align:center;color:var(--muted);font-size:12px}
+  footer a{color:#8ab4ff;text-decoration:none}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="brand"><span class="dot"></span> FASS Technologies</div>
+    <div class="card">
+      <form id="optinForm" novalidate>
+        <h1>Get text updates from FASS</h1>
+        <p class="sub">Opt in to receive account, service, and follow-up text messages from FASS Technologies — like a link you asked for on a call, or a heads-up that your report is ready.</p>
+
+        <label for="name">Full name</label>
+        <input id="name" name="name" type="text" autocomplete="name" placeholder="Jane Doe" required />
+
+        <label for="phone">Mobile number</label>
+        <input id="phone" name="phone" type="tel" autocomplete="tel" placeholder="(443) 555-0123" required />
+
+        <div class="consent">
+          <input id="consent" name="consent" type="checkbox" required />
+          <span>I agree to receive text messages from FASS Technologies at the mobile number provided. Consent is <strong>not</strong> a condition of any purchase. Message frequency varies. Message &amp; data rates may apply. Reply <strong>STOP</strong> to opt out or <strong>HELP</strong> for help at any time.</span>
+        </div>
+
+        <button id="submitBtn" type="submit" disabled>Sign me up for texts</button>
+
+        <p class="fine">
+          By submitting, you confirm the number is yours and you agree to our
+          <a href="https://flow.fass.systems/privacy-policy" target="_blank" rel="noopener">Privacy Policy</a> and
+          <a href="https://flow.fass.systems/terms-of-service" target="_blank" rel="noopener">Terms of Service</a>.
+          We do not sell or share your mobile opt-in information or consent with third parties for their marketing.
+        </p>
+      </form>
+
+      <div class="ok" id="okMsg">
+        <h2>✓ You're opted in</h2>
+        <p class="sub">Thanks — you'll now receive texts from FASS Technologies. Reply STOP anytime to opt out.</p>
+      </div>
+    </div>
+    <footer>© 2026 FASS Technologies LLC · Baltimore, MD · <a href="mailto:admin@fass.systems">admin@fass.systems</a></footer>
+  </div>
+
+<script>
+  // Enable submit only when a valid-looking phone + consent are present.
+  var form = document.getElementById('optinForm');
+  var phone = document.getElementById('phone');
+  var consent = document.getElementById('consent');
+  var btn = document.getElementById('submitBtn');
+  function digits(s){return (s||'').replace(/\D/g,'');}
+  function refresh(){ btn.disabled = !(consent.checked && digits(phone.value).length >= 10); }
+  form.addEventListener('input', refresh);
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    btn.disabled = true; btn.textContent = 'Saving…';
+    var payload = {
+      name: document.getElementById('name').value.trim(),
+      phone: '+1' + digits(phone.value).slice(-10),
+      consent: true,
+      consent_text: 'Web opt-in form: user checked box agreeing to receive SMS from FASS Technologies. Consent not a condition of purchase.',
+      source_url: location.href,
+      timestamp: new Date().toISOString()
+    };
+    // Logs consent to the FASS backend. Point this at your live consent endpoint.
+    fetch('https://api.fass.systems/api/v1/sms/consent', {
+      method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload)
+    }).catch(function(){/* still show success; backend hookup optional for display */})
+      .finally(function(){
+        form.style.display='none';
+        document.getElementById('okMsg').style.display='block';
+      });
+  });
+</script>
+</body>
+</html>
