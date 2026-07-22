@@ -303,7 +303,12 @@
   }
   .footer-links a { margin-right: 20px; font-weight: 500; }
   .footer-links a:hover { color: var(--ink); }
-</style>
+
+  @media (max-width: 760px){
+    #mcp .mcp-grid2, #mcp .mcp-grid3 { grid-template-columns: 1fr !important; }
+    #mcp .mcp-price { flex-direction: column; align-items: flex-start !important; }
+  }
+  </style>
 </head>
 <body>
 
@@ -330,6 +335,10 @@
             <a class="mega-link" href="/fass-voice"><span class="mega-name">FASS Voice <span class="mega-badge">New</span></span><span class="mega-desc">An AI sales rep on your line — answers, sells, and logs every call</span></a><a class="mega-link" href="https://flow.fass.systems/data-api">
               <span class="mega-name">FASS Data API <span class="mega-badge">New</span></span>
               <span class="mega-desc">Programmatic access to WARDOG Intel and other FASS data</span>
+            </a>
+            <a class="mega-link" href="#mcp">
+              <span class="mega-name">FASS MCP <span class="mega-badge">New</span></span>
+              <span class="mega-desc">Run FASS from Claude or any AI agent &mdash; the MCP connector</span>
             </a>
             <div class="mega-divider"></div>
             <span class="mega-link soon">
@@ -365,6 +374,7 @@
           </div>
         </div>
 
+        <a class="nav-trigger" href="#mcp">Docs</a>
         <a class="nav-trigger nav-flat" href="https://support.fass.systems/support.html">Support</a>
         <a class="nav-trigger" href="mailto:admin@fass.systems">Contact</a>
         <a class="nav-trigger" href="https://api.fass.systems/api/v1/voice/login">Log in</a>
@@ -420,6 +430,56 @@
           <p>The operating system for your sales team — onboard reps, e-sign their contracts and W-9s, track every commission, and pay them. $297/mo, 7-day free trial.</p>
           <span class="card-cta">Explore FASS Opps →</span>
         </a><a class="card" href="/fass-voice"><div class="card-badge">AI Phone Sales</div><h3>FASS Voice</h3><p>An AI sales rep on your line, live in a day — it answers your calls, runs the sales script built from your website, and logs every call to your books. Call the live demo: (443) 726-4659.</p><span class="card-cta">Explore FASS Voice →</span></a>
+      </div>
+    </section>
+
+    <section id="mcp" class="wrap" style="padding:64px 32px;border-top:1px solid #F0F0F0">
+      <div style="text-align:center;max-width:720px;margin:0 auto 34px">
+        <span style="display:inline-block;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#1D9E75;margin-bottom:12px">For developers &amp; AI agents</span>
+        <h2 style="font-size:34px;font-weight:800;letter-spacing:-.02em;margin:0 0 12px;line-height:1.1">FASS MCP &mdash; your business, operable by AI</h2>
+        <p style="color:#525252;font-size:17px;line-height:1.6;margin:0">Connect FASS to Claude &mdash; or any Model Context Protocol client &mdash; and let an AI agent run your receptionist end&#8209;to&#8209;end: stand up a line, give it a number, teach it, book appointments, and pull matched federal solicitations, all from a conversation. No dashboard.</p>
+      </div>
+
+      <div class="mcp-grid2" style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:28px">
+        <div style="background:#0B1020;color:#fff;border-radius:16px;padding:24px 26px">
+          <div style="font-size:13px;font-weight:700;color:#8AA0C6;text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px">Connect in 30 seconds</div>
+          <ol style="margin:0;padding-left:18px;color:#D7DEEC;font-size:14.5px;line-height:1.85">
+            <li>In Claude, open <strong style="color:#fff">Add custom connector</strong></li>
+            <li>Paste the FASS MCP endpoint below</li>
+            <li>Approve the FASS sign&#8209;in &mdash; OAuth, no key to copy</li>
+            <li>The tools appear, scoped to your workspace</li>
+          </ol>
+          <div style="margin-top:16px;background:#141B30;border:1px solid #263149;border-radius:10px;padding:11px 13px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;color:#B8860B;word-break:break-all">https://api.fass.systems/api/v1/voice/mcp</div>
+        </div>
+        <div style="background:#FAFAFA;border:1px solid #EDEDED;border-radius:16px;padding:24px 26px">
+          <div style="font-size:13px;font-weight:700;color:#737373;text-transform:uppercase;letter-spacing:.06em;margin-bottom:12px">Ask your AI agent things like</div>
+          <div style="display:flex;flex-direction:column;gap:9px">
+            <span style="background:#fff;border:1px solid #E8E8E8;border-radius:9px;padding:9px 12px;font-size:14px;color:#1A1A1A">&ldquo;Spin up a receptionist for my law firm and give it a 443 number.&rdquo;</span>
+            <span style="background:#fff;border:1px solid #E8E8E8;border-radius:9px;padding:9px 12px;font-size:14px;color:#1A1A1A">&ldquo;Book the caller Thursday at 2pm and add it to my calendar.&rdquo;</span>
+            <span style="background:#fff;border:1px solid #E8E8E8;border-radius:9px;padding:9px 12px;font-size:14px;color:#1A1A1A">&ldquo;Teach my line our hours, services, and pricing.&rdquo;</span>
+            <span style="background:#fff;border:1px solid #E8E8E8;border-radius:9px;padding:9px 12px;font-size:14px;color:#1A1A1A">&ldquo;Email me the federal solicitations matched to my business.&rdquo;</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="mcp-grid3" style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:30px">
+        <div style="border:1px solid #ECECEC;border-radius:14px;padding:18px 20px"><div style="font-weight:700;font-size:15px;margin-bottom:6px">Provision a line</div><div style="color:#666;font-size:13px;line-height:1.55">create_business &middot; set_agent &middot; provision_number</div></div>
+        <div style="border:1px solid #ECECEC;border-radius:14px;padding:18px 20px"><div style="font-weight:700;font-size:15px;margin-bottom:6px">Book appointments</div><div style="color:#666;font-size:13px;line-height:1.55">get_availability &middot; book_appointment (Google Calendar sync)</div></div>
+        <div style="border:1px solid #ECECEC;border-radius:14px;padding:18px 20px"><div style="font-weight:700;font-size:15px;margin-bottom:6px">Teach the line</div><div style="color:#666;font-size:13px;line-height:1.55">set_faq &middot; update_knowledge &middot; list_knowledge</div></div>
+        <div style="border:1px solid #ECECEC;border-radius:14px;padding:18px 20px"><div style="font-weight:700;font-size:15px;margin-bottom:6px">See &amp; act on demand</div><div style="color:#666;font-size:13px;line-height:1.55">list_calls &middot; list_leads &middot; send_sms &middot; create_followup</div></div>
+        <div style="border:1px solid #ECECEC;border-radius:14px;padding:18px 20px"><div style="font-weight:700;font-size:15px;margin-bottom:6px">Flow / govcon</div><div style="color:#666;font-size:13px;line-height:1.55">list_solicitations &middot; email_solicitation_digest</div></div>
+        <div style="border:1px solid #ECECEC;border-radius:14px;padding:18px 20px"><div style="font-weight:700;font-size:15px;margin-bottom:6px">Meet &amp; measure</div><div style="color:#666;font-size:13px;line-height:1.55">create_meeting_link &middot; get_usage &middot; list_messages</div></div>
+      </div>
+
+      <div class="mcp-price" style="background:#F6FBF8;border:1px solid #CDE9DB;border-radius:16px;padding:26px 28px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:18px">
+        <div style="max-width:640px">
+          <div style="font-size:20px;font-weight:800;margin-bottom:6px">Pricing: included with every FASS plan</div>
+          <p style="color:#4B5563;font-size:15px;line-height:1.6;margin:0">The MCP connector is <strong>free</strong> &mdash; it operates on your existing FASS workspace. You pay for FASS Voice, Flow, or the FASS Suite bundle as usual; calls, phone numbers, and usage bill through your plan. No separate developer fee, no per&#8209;call MCP surcharge. Every tool is scoped to your own businesses and defaults to approval&#8209;required.</p>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <a href="https://flow.fass.systems/join" style="display:inline-block;background:#0A0A0A;color:#fff;font-weight:700;padding:12px 22px;border-radius:10px;text-align:center">Get started &rarr;</a>
+          <a href="https://api.fass.systems/api/v1/subscriptions/suite/checkout" style="display:inline-block;background:#fff;border:1px solid #D4D4D4;color:#0A0A0A;font-weight:600;padding:12px 22px;border-radius:10px;text-align:center">FASS Suite &mdash; $399/mo</a>
+        </div>
       </div>
     </section>
 
