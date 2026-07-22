@@ -42,6 +42,10 @@
     {
       "source": "/fass-voice",
       "destination": "/fass-voice.html"
+    },
+    {
+      "source": "/docs",
+      "destination": "/docs.html"
     }
   ]
 }
