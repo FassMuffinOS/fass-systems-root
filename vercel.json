@@ -17,6 +17,16 @@
       "permanent": false
     },
     {
+      "source": "/reps",
+      "destination": "https://api.fass.systems/api/v1/voice/reps",
+      "permanent": false
+    },
+    {
+      "source": "/start",
+      "destination": "https://api.fass.systems/api/v1/voice/start",
+      "permanent": false
+    },
+    {
       "source": "/sales",
       "destination": "https://api.fass.systems/api/v1/sales",
       "permanent": false
