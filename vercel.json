@@ -27,6 +27,16 @@
       "permanent": false
     },
     {
+      "source": "/grantpath",
+      "destination": "https://api.fass.systems/api/v1/voice/grantpath",
+      "permanent": false
+    },
+    {
+      "source": "/grantpath/sample",
+      "destination": "https://api.fass.systems/api/v1/voice/grantpath/sample.pdf",
+      "permanent": false
+    },
+    {
       "source": "/sales",
       "destination": "https://api.fass.systems/api/v1/sales",
       "permanent": false
