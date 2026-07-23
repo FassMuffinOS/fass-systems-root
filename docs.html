@@ -82,6 +82,12 @@
     .hnav .hide-sm{display:none}
     main.doc{padding:28px 22px 80px}
   }
+  .promptbox{background:#0B1020;color:#EAF0FA;border-radius:14px;padding:16px 20px;font-size:16px;line-height:1.55;font-style:italic;border-left:4px solid var(--accent)}
+  ul.checks{list-style:none;margin:12px 0 0;padding:0}
+  ul.checks li{position:relative;padding:6px 0 6px 30px;font-size:15px;color:var(--ink)}
+  ul.checks li::before{content:"";position:absolute;left:2px;top:9px;width:17px;height:17px;border-radius:50%;background:var(--accent)}
+  ul.checks li::after{content:"";position:absolute;left:7.5px;top:12px;width:4px;height:8px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg)}
+  ul.checks .muted{color:#9CA3AF;font-weight:500}
 </style>
 </head>
 <body>
@@ -104,6 +110,7 @@
   <!-- ===== sidebar ===== -->
   <aside class="side" id="side">
     <div class="grp">Get started</div>
+    <a href="#do">What can I do?</a>
     <a href="#overview">Overview</a>
     <a href="#quickstart">Quickstart</a>
     <a href="#auth">Authentication</a>
@@ -133,6 +140,20 @@
       <span class="pill">19 tools</span>
       <span class="pill">Included with every plan</span>
     </div>
+
+    <h2 id="do">What can I actually do?</h2>
+    <p>You never call these tools yourself. You tell Claude what you want in plain English, and it chains the right tools together. For example, in a single prompt:</p>
+    <div class="promptbox">&ldquo;Create a receptionist for my dental office from my website, purchase a local phone number, teach it my office hours, and start booking appointments.&rdquo;</div>
+    <p style="margin-top:16px;font-weight:600;color:#111827">Claude will automatically:</p>
+    <ul class="checks">
+      <li>Create your business</li>
+      <li>Configure the AI receptionist from your website</li>
+      <li>Purchase a phone number <span class="muted">(with your approval)</span></li>
+      <li>Import your hours, services, and FAQs</li>
+      <li>Sync appointments to your connected Google Calendar</li>
+      <li>Begin answering calls and booking clients</li>
+    </ul>
+    <div class="callout">Connecting Google Calendar is a one&#8209;time setup in your FASS connectors. After that, every booking lands on your calendar automatically &mdash; and everything above happens right inside your chat with Claude.</div>
 
     <h2 id="overview">Overview</h2>
     <p>The FASS MCP server exposes your workspace as a set of <strong>tools</strong> an AI agent can call on your behalf. It speaks JSON&#8209;RPC over HTTP at a single endpoint and authenticates with OAuth 2.1, so a client like Claude can discover it, sign you in, and start working — no key management.</p>
@@ -250,6 +271,7 @@ POST /api/v1/voice/mcp
   <!-- ===== on this page ===== -->
   <nav class="toc" id="toc">
     <div class="t">On this page</div>
+    <a href="#do">What can I do?</a>
     <a href="#overview">Overview</a>
     <a href="#quickstart">Quickstart</a>
     <a href="#auth">Authentication</a>
@@ -268,11 +290,11 @@ POST /api/v1/voice/mcp
   if(mb){mb.addEventListener('click',function(e){e.preventDefault();document.body.classList.toggle('nav-open');});}
   document.querySelectorAll('aside.side a').forEach(function(a){a.addEventListener('click',function(){document.body.classList.remove('nav-open');});});
   // scrollspy for sidebar + toc
-  var ids=['overview','quickstart','auth','tools','t-provision','t-knowledge','t-booking','t-flow','t-read','usecases','security','pricing'];
+  var ids=['do','overview','quickstart','auth','tools','t-provision','t-knowledge','t-booking','t-flow','t-read','usecases','security','pricing'];
   var sideLinks={}, tocLinks={};
   document.querySelectorAll('aside.side a').forEach(function(a){var h=a.getAttribute('href')||'';if(h[0]==='#')sideLinks[h.slice(1)]=a;});
   document.querySelectorAll('nav.toc a').forEach(function(a){var h=a.getAttribute('href')||'';if(h[0]==='#')tocLinks[h.slice(1)]=a;});
-  var tocOrder=['overview','quickstart','auth','tools','usecases','security','pricing'];
+  var tocOrder=['do','overview','quickstart','auth','tools','usecases','security','pricing'];
   function tocFor(id){var i=tocOrder.indexOf(id);if(i>=0)return id;
     if(['t-provision','t-knowledge','t-booking','t-flow','t-read'].indexOf(id)>=0)return 'tools';return null;}
   var obs=new IntersectionObserver(function(entries){
