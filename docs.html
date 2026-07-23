@@ -138,6 +138,7 @@
       <span class="pill">Model Context Protocol</span>
       <span class="pill">OAuth 2.1</span>
       <span class="pill">19 tools</span>
+      <span class="pill">Multilingual</span>
       <span class="pill">Included with every plan</span>
     </div>
 
@@ -197,9 +198,10 @@ POST /api/v1/voice/mcp
     <table>
       <tr><th>Tool</th><th>Parameters</th><th>What it does</th></tr>
       <tr><td><code>create_business</code></td><td><code>name</code>, <code>website?</code>, <code>timezone?</code></td><td>Create a new receptionist line in preview. Pass a website to auto&#8209;write the greeting and script.</td></tr>
-      <tr><td><code>set_agent</code></td><td><code>business_id</code>, <code>greeting?</code>, <code>voice?</code>, <code>timezone?</code>, <code>system_prompt?</code></td><td>Configure how the line answers.</td></tr>
+      <tr><td><code>set_agent</code></td><td><code>business_id</code>, <code>greeting?</code>, <code>voice?</code>, <code>timezone?</code>, <code>languages?</code>, <code>system_prompt?</code></td><td>Configure how the line answers &mdash; including the languages it speaks.</td></tr>
       <tr><td><code>provision_number</code></td><td><code>business_id</code>, <code>area_code?</code>, <code>contains?</code></td><td>Buy a phone number and take the line live. Purchases a real number.</td></tr>
     </table>
+    <div class="callout"><strong>Multilingual calls.</strong> Pass <code>languages</code> to <code>set_agent</code> or <code>create_business</code> &mdash; e.g. <code>"English, Spanish"</code>. The AI auto&#8209;detects the caller's language on the call and answers in it, and can switch mid&#8209;call. Spoken support today: English, Spanish, French, Portuguese, German, Italian.</div>
 
     <h3 id="t-knowledge">Knowledge</h3>
     <table>
