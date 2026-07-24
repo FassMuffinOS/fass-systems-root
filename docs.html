@@ -139,7 +139,7 @@
     <div>
       <span class="pill">Model Context Protocol</span>
       <span class="pill">OAuth 2.1</span>
-      <span class="pill">39 tools</span>
+      <span class="pill">40 tools</span>
       <span class="pill">Multilingual</span>
       <span class="pill">Included with every plan</span>
     </div>
@@ -194,7 +194,7 @@ POST /api/v1/voice/mcp
 }</pre>
 
     <h2 id="tools">Tools reference</h2>
-    <p>39 tools, grouped by what they do. Optional parameters are marked <code>?</code>. When you have one business, <code>business_id</code> can be omitted and FASS uses it automatically.</p>
+    <p>40 tools, grouped by what they do. Optional parameters are marked <code>?</code>. When you have one business, <code>business_id</code> can be omitted and FASS uses it automatically.</p>
 
     <h3 id="t-provision">Provisioning</h3>
     <table>
@@ -240,6 +240,7 @@ POST /api/v1/voice/mcp
       <tr><td><code>list_pipeline</code></td><td><code>stage?</code>, <code>limit?</code></td><td>See the bid board grouped by stage (flagged → scored → pursuing → submitted → awarded → passed): id, title, agency, deadline, NAICS, score, value.</td></tr>
       <tr><td><code>read_proposal</code></td><td><code>proposal_id</code></td><td>Read the FULL content of one bid — captured solicitation text, R&#8209;E&#8209;A&#8209;D worksheet, drafted sections — so an agent can review or improve it.</td></tr>
       <tr><td><code>list_due</code></td><td><code>within_days?</code></td><td>The bids that need attention — overdue or due within N days (default 7), excluding awarded/passed. Nearest deadline first.</td></tr>
+      <tr><td><code>triage_pipeline</code></td><td><code>stage?</code>, <code>limit?</code></td><td>Score &amp; tag every board opportunity <strong>prime / sub / ignore</strong> for winnability (SaaS fit, subcontract&#8209;friendly, repeat buyer; penalizes past&#8209;performance gaps &amp; unheld set&#8209;asides). Persists the tags.</td></tr>
       <tr><td><code>move_pipeline_item</code></td><td><code>proposal_id</code>, <code>stage</code></td><td>Move an item to another stage/column — this is how an agent partitions the board.</td></tr>
       <tr><td><code>update_pipeline_item</code></td><td><code>proposal_id</code>, <code>title?</code>, <code>agency?</code>, <code>due_date?</code>, <code>naics_code?</code>, <code>estimated_value?</code>, <code>status?</code></td><td>Fix an item's details so the board is correct. Only the fields you pass change.</td></tr>
       <tr><td><code>delete_pipeline_item</code></td><td><code>proposal_id</code></td><td>Permanently remove a junk/duplicate item. Deletes a real row — cannot be undone.</td></tr>
