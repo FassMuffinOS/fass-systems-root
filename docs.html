@@ -122,6 +122,7 @@
     <a href="#t-flow">Flow &amp; govcon</a>
     <a href="#t-pipeline">Pipeline control</a>
     <a href="#t-read">Read &amp; act</a>
+    <a href="#t-sales">Sales team</a>
     <div class="grp">Guides</div>
     <a href="#usecases">Use cases</a>
     <a href="#security">Security &amp; tenancy</a>
@@ -138,7 +139,7 @@
     <div>
       <span class="pill">Model Context Protocol</span>
       <span class="pill">OAuth 2.1</span>
-      <span class="pill">32 tools</span>
+      <span class="pill">39 tools</span>
       <span class="pill">Multilingual</span>
       <span class="pill">Included with every plan</span>
     </div>
@@ -193,7 +194,7 @@ POST /api/v1/voice/mcp
 }</pre>
 
     <h2 id="tools">Tools reference</h2>
-    <p>32 tools, grouped by what they do. Optional parameters are marked <code>?</code>. When you have one business, <code>business_id</code> can be omitted and FASS uses it automatically.</p>
+    <p>39 tools, grouped by what they do. Optional parameters are marked <code>?</code>. When you have one business, <code>business_id</code> can be omitted and FASS uses it automatically.</p>
 
     <h3 id="t-provision">Provisioning</h3>
     <table>
@@ -258,6 +259,20 @@ POST /api/v1/voice/mcp
       <tr><td><code>create_meeting_link</code></td><td><code>business_id?</code></td><td>A shareable video meeting link anyone can join in a browser.</td></tr>
       <tr><td><code>get_usage</code></td><td>—</td><td>Businesses, calls answered, leads captured.</td></tr>
     </table>
+
+    <h3 id="t-sales">Sales team <span class="c" style="color:#9CA3AF;font-weight:400">— staff only</span></h3>
+    <p>These work the new&#8209;registrant call queue and are <strong>role&#8209;gated</strong>: only accounts whose profile role is <code>admin</code>, <code>manager</code>, or <code>rep</code> can call them. Everyone else gets a polite refusal. Each is scoped to the signed&#8209;in rep.</p>
+    <table>
+      <tr><th>Tool</th><th>Parameters</th><th>What it does</th></tr>
+      <tr><td><code>list_sales_leads</code></td><td><code>pool?</code>, <code>track?</code>, <code>state?</code>, <code>limit?</code></td><td>Leads from the call queue. <code>pool</code> = mine, new, due, or unclaimed.</td></tr>
+      <tr><td><code>get_sales_lead</code></td><td><code>uei</code></td><td>Full detail on one lead — contact, decision&#8209;maker, status, consent, recent activity.</td></tr>
+      <tr><td><code>draft_lead_outreach</code></td><td><code>uei</code>, <code>channel?</code></td><td>Draft a personalized call opener, email, or text for a lead around the right FASS product. Drafts only — sends nothing.</td></tr>
+      <tr><td><code>claim_lead</code></td><td><code>uei</code></td><td>Assign a lead to you. Refuses if another rep holds it.</td></tr>
+      <tr><td><code>log_sales_outcome</code></td><td><code>uei</code>, <code>outcome</code>, <code>note?</code>, <code>follow_up_hours?</code>, <code>dq_reason?</code></td><td>Record a call result (no_answer / talked / sent_link / meeting / nurture / disqualify), advance status, set follow&#8209;ups.</td></tr>
+      <tr><td><code>set_lead_consent</code></td><td><code>uei</code>, <code>source</code></td><td>Record outreach consent (verbal_on_call / inbound_callback / written) before any automated messaging.</td></tr>
+      <tr><td><code>my_sales_stats</code></td><td>—</td><td>Your scoreboard: pipeline, the dials→connects→links→paid funnel, rates, and estimated commission.</td></tr>
+    </table>
+    <div class="callout"><strong>Claude as a sales assistant.</strong> A rep can say “Pull my due follow&#8209;ups, and for the top one draft me a text and log that I sent the link.” <span class="c" style="color:#9CA3AF">(list_sales_leads → draft_lead_outreach → log_sales_outcome)</span></div>
 
     <h2 id="usecases">Use cases</h2>
     <p>Because the tools compose, one instruction can chain several. A few things you can just ask for:</p>
