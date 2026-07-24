@@ -120,6 +120,7 @@
     <a href="#t-knowledge">Knowledge</a>
     <a href="#t-booking">Booking</a>
     <a href="#t-flow">Flow &amp; govcon</a>
+    <a href="#t-pipeline">Pipeline control</a>
     <a href="#t-read">Read &amp; act</a>
     <div class="grp">Guides</div>
     <a href="#usecases">Use cases</a>
@@ -137,7 +138,7 @@
     <div>
       <span class="pill">Model Context Protocol</span>
       <span class="pill">OAuth 2.1</span>
-      <span class="pill">19 tools</span>
+      <span class="pill">28 tools</span>
       <span class="pill">Multilingual</span>
       <span class="pill">Included with every plan</span>
     </div>
@@ -192,7 +193,7 @@ POST /api/v1/voice/mcp
 }</pre>
 
     <h2 id="tools">Tools reference</h2>
-    <p>19 tools, grouped by what they do. Optional parameters are marked <code>?</code>. When you have one business, <code>business_id</code> can be omitted and FASS uses it automatically.</p>
+    <p>28 tools, grouped by what they do. Optional parameters are marked <code>?</code>. When you have one business, <code>business_id</code> can be omitted and FASS uses it automatically.</p>
 
     <h3 id="t-provision">Provisioning</h3>
     <table>
@@ -223,7 +224,22 @@ POST /api/v1/voice/mcp
       <tr><th>Tool</th><th>Parameters</th><th>What it does</th></tr>
       <tr><td><code>list_solicitations</code></td><td><code>only_open?</code>, <code>limit?</code></td><td>Federal/state solicitations matched to your workspace (title, commodity, deadline, link).</td></tr>
       <tr><td><code>email_solicitation_digest</code></td><td><code>only_open?</code></td><td>Email a digest of matched solicitations to your own account email — never anyone else.</td></tr>
+      <tr><td><code>generate_grantpath_report</code></td><td><code>business_name</code>, <code>naics?</code>, <code>state?</code>, <code>certifications?</code>, <code>email?</code></td><td>Build a personalized GrantPath report — federal contracts (SAM.gov) + grants (Grants.gov) matched to the business, ranked with a plain&#8209;English "why it fits" — email the PDF and land the matches on your pipeline.</td></tr>
+      <tr><td><code>generate_contractpath_report</code></td><td><code>business_name</code>, <code>naics?</code>, <code>state?</code>, <code>certifications?</code>, <code>email?</code></td><td>Win&#8209;focused report: open solicitations to bid on now, plus the recompetes on the horizon to position for. Emails the PDF and syncs to your pipeline.</td></tr>
+      <tr><td><code>generate_proposal</code></td><td><code>business_name</code>, <code>title</code>, <code>solicitation_number?</code>, <code>agency?</code>, <code>naics?</code>, <code>set_aside?</code>, <code>deadline?</code>, <code>description?</code>, <code>email?</code></td><td>Draft a full federal Technical &amp; Price Proposal (cover, exec summary, approach, personnel, past performance, compliance matrix) for one solicitation and email the PDF.</td></tr>
+      <tr><td><code>render_grantpath_report</code></td><td><code>spec</code>, <code>email?</code></td><td>Render an agent&#8209;researched report spec into the branded FASS PDF template.</td></tr>
+      <tr><td><code>pursue_opportunities</code></td><td><code>business_name</code>, <code>naics?</code>, <code>state?</code>, <code>track?</code>, <code>max?</code>, <code>email?</code></td><td>Autopilot: scan live opportunities, draft a full proposal for each strong fit, land them on your pipeline, and deliver. The hands&#8209;off trigger.</td></tr>
     </table>
+
+    <h3 id="t-pipeline">Pipeline control</h3>
+    <table>
+      <tr><th>Tool</th><th>Parameters</th><th>What it does</th></tr>
+      <tr><td><code>list_pipeline</code></td><td><code>stage?</code>, <code>limit?</code></td><td>See the bid board grouped by stage (flagged → scored → pursuing → submitted → awarded → passed): id, title, agency, deadline, NAICS, score, value.</td></tr>
+      <tr><td><code>move_pipeline_item</code></td><td><code>proposal_id</code>, <code>stage</code></td><td>Move an item to another stage/column — this is how an agent partitions the board.</td></tr>
+      <tr><td><code>update_pipeline_item</code></td><td><code>proposal_id</code>, <code>title?</code>, <code>agency?</code>, <code>due_date?</code>, <code>naics_code?</code>, <code>estimated_value?</code>, <code>status?</code></td><td>Fix an item's details so the board is correct. Only the fields you pass change.</td></tr>
+      <tr><td><code>delete_pipeline_item</code></td><td><code>proposal_id</code></td><td>Permanently remove a junk/duplicate item. Deletes a real row — cannot be undone.</td></tr>
+    </table>
+    <div class="callout"><strong>Agent&#8209;controlled pipeline.</strong> With these an AI can keep your bid board correct end&#8209;to&#8209;end: “Show my pipeline, move the two overdue food&#8209;service bids to <em>passed</em>, and delete the duplicate SolarWinds entry.” Every pipeline tool is scoped to your own <code>user_id</code> at the database level — an agent can only touch your board, never anyone else's.</div>
 
     <h3 id="t-read">Read &amp; act</h3>
     <table>
@@ -245,13 +261,15 @@ POST /api/v1/voice/mcp
       <li><strong>Onboard from chat</strong> — “Spin up a receptionist for my law firm from our website, give it a 443 number, and teach it our hours.” <span class="c" style="color:#9CA3AF">(create_business → set_agent → provision_number → set_faq)</span></li>
       <li><strong>Convert a caller</strong> — “Book the caller Thursday at 2pm and add it to my calendar.” <span class="c" style="color:#9CA3AF">(get_availability → book_appointment)</span></li>
       <li><strong>Work the govcon pipeline</strong> — “Email me the federal solicitations matched to my business.” <span class="c" style="color:#9CA3AF">(list_solicitations → email_solicitation_digest)</span></li>
+      <li><strong>Go from zero to drafted bids</strong> — “Find the federal work my business qualifies for and draft proposals for the best fits.” <span class="c" style="color:#9CA3AF">(pursue_opportunities → land on pipeline)</span></li>
+      <li><strong>Keep the board clean</strong> — “Show my pipeline, delete the duplicate SolarWinds bid, and move the overdue food&#8209;service ones to passed.” <span class="c" style="color:#9CA3AF">(list_pipeline → delete_pipeline_item → move_pipeline_item)</span></li>
       <li><strong>Follow up</strong> — “Text the warm lead our booking link and log a follow&#8209;up to call them tomorrow.” <span class="c" style="color:#9CA3AF">(send_sms → create_followup)</span></li>
     </ul>
 
     <h2 id="security">Security &amp; tenancy</h2>
     <ul>
       <li><strong>Scoped to you.</strong> Every tool resolves against the businesses on your own account. A business id that isn't yours returns nothing.</li>
-      <li><strong>Approval by default.</strong> Write tools (<code>send_sms</code>, <code>provision_number</code>, <code>book_appointment</code>, <code>email_solicitation_digest</code>, …) default to approval&#8209;required in the client.</li>
+      <li><strong>Approval by default.</strong> Write tools (<code>send_sms</code>, <code>provision_number</code>, <code>book_appointment</code>, <code>email_solicitation_digest</code>, <code>generate_proposal</code>, <code>pursue_opportunities</code>, <code>move_pipeline_item</code>, <code>update_pipeline_item</code>, <code>delete_pipeline_item</code>, …) default to approval&#8209;required in the client. <code>delete_pipeline_item</code> is permanent and always asks first.</li>
       <li><strong>Digest goes only to you.</strong> <code>email_solicitation_digest</code> can only send to your own account email — never an address supplied in a prompt.</li>
       <li><strong>Hard guards.</strong> Double&#8209;booking is prevented by a database constraint, not a best&#8209;effort check.</li>
     </ul>
